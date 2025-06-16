@@ -1,0 +1,25 @@
+name: CI PIPELINE
+on: [push, pull_request] # it gets Trigger on pull and push_request
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest #github hosted Linux-Vm
+
+    steps:
+      # 1. Check out code
+      - uses: actions/checkout@v4
+
+      # 2. Set up Go
+      - uses: actions/setup-go@v4
+        with:
+          go-version: '1.21'  # Replace with your Go version  
+
+      # 3. Install dependencies
+      - run: go mod download
+
+      # 4. Run tests (if you have tests)
+      - run: go test -v ./...
+
+      # 5. Build the binary (optional)
+      - run: go build -o myapp
